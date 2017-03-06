@@ -14,6 +14,16 @@ export default class App extends Component {
         <p>Ferdinand Magellan, portugese explorer, named the ocean in 1521</p>
       </div>
     )
+    const Match = ({ pattern, component: Component }) => {
+      const pathname = window.location.pathname
+      if (pathname.match(pattern)) {
+        return (
+          <Component />
+        )
+      } else {
+        return null
+      }
+    }
     return <div>
       <h2>Which Body of Water</h2>
       <ul>
@@ -28,6 +38,8 @@ export default class App extends Component {
           </a>
         </li>
       </ul>
+      <Match pattern='/atlantic' component={Atlantic} />
+      <Match pattern='/pacific' component={Pacific} />
     </div>
   }
 }
