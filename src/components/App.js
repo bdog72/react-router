@@ -1,12 +1,21 @@
 import React, { Component } from 'react'
 
-class App extends Component {
-
+export default class App extends Component {
   render () {
     return <div>
-      <h1>Hello, World!</h1>
+      <h2>Which Body of Water</h2>
+      <ul>
+        <li>
+          <a href='/atlantic'>
+            <code>atlantic</code>
+          </a>
+        </li>
+        <li>
+          <a href='/pacific'>
+            <code>pacific</code>
+          </a>
+        </li>
+      </ul>
     </div>
   }
 }
-
-export default App
