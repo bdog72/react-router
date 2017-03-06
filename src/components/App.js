@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-
+// import createHistory from 'history/createBrowserHistory'
+// import { Link } from 'react=router'
 export default class App extends Component {
   render () {
     const Atlantic = () => (
@@ -14,6 +15,8 @@ export default class App extends Component {
         <p>Ferdinand Magellan, portugese explorer, named the ocean in 1521</p>
       </div>
     )
+    // const history = createHistory()
+
     const Match = ({ pattern, component: Component }) => {
       const pathname = window.location.pathname
       if (pathname.match(pattern)) {
@@ -24,17 +27,27 @@ export default class App extends Component {
         return null
       }
     }
+    const Link = ({ to, children }) => (
+      <a onClick={(e) => {
+        e.preventDefault()
+        history.push(to)
+      }}
+        href={to}
+      >
+        {children}
+      </a>
+    )
     return <div>
       <h2>Which Body of Water</h2>
       <ul>
         <li>
           <a href='/atlantic'>
-            <code>atlantic</code>
+            <code>ATLANTIC</code>
           </a>
         </li>
         <li>
           <a href='/pacific'>
-            <code>pacific</code>
+            <code>PACIFIC</code>
           </a>
         </li>
       </ul>
