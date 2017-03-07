@@ -1,5 +1,9 @@
 import React from 'react'
 
+import createHistory from 'history/createBrowserHistory'
+
+const history = createHistory()
+
 const Match = ({ pattern, component: Component }) => {
   const pathname = window.location.pathname
   if (pathname.match(pattern)) {
@@ -11,7 +15,21 @@ const Match = ({ pattern, component: Component }) => {
   }
 }
 
+const Link = ({ to, children }) => (
+  <a onClick={(e) => {
+    e.preventDefault()
+    history.push(to)
+  }}
+    href={to}>
+    {children}
+  </a>
+)
+
 class App extends React.Component {
+  componentDidMount () {
+    history.listen(() => this.forceUpdate())
+  }
+
   render () {
     return (
       <div
@@ -23,14 +41,14 @@ class App extends React.Component {
 
         <ul>
           <li>
-            <a href='/atlantic'>
-              <code>/atlantic</code>
-            </a>
+            <Link to='/atlantic'>
+              <code>ATLANTIC</code>
+            </Link>
           </li>
           <li>
-            <a href='/pacific'>
-              <code>/pacific</code>
-            </a>
+            <Link to='/pacific'>
+              <code>PACIFIC</code>
+            </Link>
           </li>
         </ul>
 
