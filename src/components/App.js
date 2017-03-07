@@ -1,58 +1,66 @@
-import React, { Component } from 'react'
-// import createHistory from 'history/createBrowserHistory'
-// import { Link } from 'react=router'
-export default class App extends Component {
-  render () {
-    const Atlantic = () => (
-      <div>
-        <h3>Atlantic Ocean</h3>
-        <p>Atlantic Ocean covers approcimately 1/5th of the surface of the planet</p>
-      </div>
-    )
-    const Pacific = () => (
-      <div>
-        <h3>Pacific Ocean</h3>
-        <p>Ferdinand Magellan, portugese explorer, named the ocean in 1521</p>
-      </div>
-    )
-    // const history = createHistory()
+import React from 'react'
 
-    const Match = ({ pattern, component: Component }) => {
-      const pathname = window.location.pathname
-      if (pathname.match(pattern)) {
-        return (
-          <Component />
-        )
-      } else {
-        return null
-      }
-    }
-    const Link = ({ to, children }) => (
-      <a onClick={(e) => {
-        e.preventDefault()
-        history.push(to)
-      }}
-        href={to}
-      >
-        {children}
-      </a>
+const Match = ({ pattern, component: Component }) => {
+  const pathname = window.location.pathname
+  if (pathname.match(pattern)) {
+    return (
+      <Component />
     )
-    return <div>
-      <h2>Which Body of Water</h2>
-      <ul>
-        <li>
-          <a href='/atlantic'>
-            <code>ATLANTIC</code>
-          </a>
-        </li>
-        <li>
-          <a href='/pacific'>
-            <code>PACIFIC</code>
-          </a>
-        </li>
-      </ul>
-      <Match pattern='/atlantic' component={Atlantic} />
-      <Match pattern='/pacific' component={Pacific} />
-    </div>
+  } else {
+    return null
   }
 }
+
+class App extends React.Component {
+  render () {
+    return (
+      <div
+        className='ui text container'
+      >
+        <h2 className='ui dividing header'>
+          Which body of water?
+        </h2>
+
+        <ul>
+          <li>
+            <a href='/atlantic'>
+              <code>/atlantic</code>
+            </a>
+          </li>
+          <li>
+            <a href='/pacific'>
+              <code>/pacific</code>
+            </a>
+          </li>
+        </ul>
+
+        <hr />
+
+        <Match pattern='/atlantic' component={Atlantic} />
+        <Match pattern='/pacific' component={Pacific} />
+      </div>
+    )
+  }
+}
+
+const Atlantic = () => (
+  <div>
+    <h3>Atlantic Ocean</h3>
+    <p>
+      The Atlantic Ocean covers approximately 1/5th of the
+      surface of the earth.
+    </p>
+  </div>
+)
+
+const Pacific = () => (
+  <div>
+    <h3>Pacific Ocean</h3>
+    <p>
+      Ferdinand Magellan, a Portuguese explorer, named the ocean
+      'mar pacifico' in 1521, which means peaceful sea.
+    </p>
+  </div>
+)
+
+export default App
