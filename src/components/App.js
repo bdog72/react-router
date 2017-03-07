@@ -86,17 +86,17 @@ const App = () => (
       <ul>
         <li>
           <Link to='/atlantic'>
-            <code>ATLANTICK</code>
+            <code>/atlantic</code>
           </Link>
         </li>
         <li>
           <Link to='/pacific'>
-            <code>PACIFIC</code>
+            <code>/pacific</code>
           </Link>
         </li>
         <li>
           <Link to='/black-sea'>
-            <code>BLACK-SEA</code>
+            <code>/black-sea</code>
           </Link>
         </li>
       </ul>
@@ -135,7 +135,7 @@ class BlackSea extends React.Component {
     super(props)
 
     this.state = {
-      counter: 5
+      counter: 3
     }
   }
 
