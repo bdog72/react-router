@@ -2,10 +2,8 @@ import React from 'react'
 
 import createHistory from 'history/createBrowserHistory'
 
-const history = createHistory()
-
-const Match = ({ pattern, component: Component }) => {
-  const pathname = window.location.pathname
+const Match = ({ pattern, component: Component }, { location }) => {
+  const pathname = location.pathname
   if (pathname.match(pattern)) {
     return (
       <Component />
@@ -14,8 +12,11 @@ const Match = ({ pattern, component: Component }) => {
     return null
   }
 }
+Match.contextTypes = {
+  location: React.PropTypes.object
+}
 
-const Link = ({ to, children }) => (
+const Link = ({ to, children }, { history }) => (
   <a onClick={(e) => {
     e.preventDefault()
     history.push(to)
@@ -24,42 +25,59 @@ const Link = ({ to, children }) => (
     {children}
   </a>
 )
+Link.contextTypes = {
+  history: React.PropTypes.object
+}
 
-class App extends React.Component {
-  componentDidMount () {
-    history.listen(() => this.forceUpdate())
+class Router extends React.Component {
+  static childContextTypes = {
+    history: React.PropTypes.object,
+    location: React.PropTypes.object
   }
+  constructor (props) {
+    super(props)
 
+    this.history = createHistory()
+    this.history.listen(() => this.forceUpdate())
+  }
+  getChildContext () {
+    return {
+      history: this.history,
+      location: window.location
+    }
+  }
   render () {
-    return (
-      <div
-        className='ui text container'
-      >
-        <h2 className='ui dividing header'>
+    return this.props.children
+  }
+}
+
+const App = () => (
+  <Router>
+    <div className='ui text container'>
+      <h2 className='ui dividing header'>
           Which body of water?
         </h2>
 
-        <ul>
-          <li>
-            <Link to='/atlantic'>
-              <code>ATLANTIC</code>
-            </Link>
-          </li>
-          <li>
-            <Link to='/pacific'>
-              <code>PACIFIC</code>
-            </Link>
-          </li>
-        </ul>
+      <ul>
+        <li>
+          <Link to='/atlantic'>
+            <code>ATLANTIC</code>
+          </Link>
+        </li>
+        <li>
+          <Link to='/pacific'>
+            <code>PACIFIC</code>
+          </Link>
+        </li>
+      </ul>
 
-        <hr />
+      <hr />
 
-        <Match pattern='/atlantic' component={Atlantic} />
-        <Match pattern='/pacific' component={Pacific} />
-      </div>
-    )
-  }
-}
+      <Match pattern='/atlantic' component={Atlantic} />
+      <Match pattern='/pacific' component={Pacific} />
+    </div>
+  </Router>
+)
 
 const Atlantic = () => (
   <div>
