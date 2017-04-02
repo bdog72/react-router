@@ -28,7 +28,7 @@ export default class App2 extends Component {
 
     return <div>
       <h2>What kind of dance music you like</h2>
-      <ul>
+      <ul className='list2'>
         <li><a href='/breakbeat'>Breakbeat</a></li>
         <li><a href='/house'>House</a></li>
         <li><a href='/progressive HOuse' />Progressive House</li>
