@@ -1,6 +1,6 @@
 import React from 'react'
 import createHistory from 'history/createBrowserHistory'
-
+// import { Link, Match } from 'react-router'
 const Match = ({ pattern, component: Component }, { location }) => {
   const pathname = window.location.pathname
   if (pathname.match(pattern)) {
@@ -57,7 +57,7 @@ class Router extends React.Component {
 const App2 = () => (
 
   <Router>
-    <div>
+    <div className='app2'>
       <h2>What dance music you like</h2>
       <ul className='list2'>
         <li><Link to='/breakbeat'>Breakbeat</Link></li>
